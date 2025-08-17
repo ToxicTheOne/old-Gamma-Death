@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://b16onf3pbgn8a"]
+
+[ext_resource type="PackedScene" uid="uid://b50i46kaw3eqm" path="res://scenes/actor..tscn" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://qd4nxb4m55m0" path="res://icon.svg" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://cpdqoh6tyydaf" path="res://scenes/movement_component.tscn" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://dhbbybw2usg46" path="res://scenes/gun_component.tscn" id="4_dqkch"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
+size = Vector2(18, 27)
+
+[node name="Player" type="Node2D" groups=["Player"]]
+
+[node name="ActorComponent" parent="." node_paths=PackedStringArray("collision", "sprite_face", "gun_conponent", "movement_component") instance=ExtResource("1_3vyb7")]
+collision = NodePath("Collision")
+sprite_face = NodePath("face")
+gun_conponent = NodePath("GunComponent")
+movement_component = NodePath("MovementComponent")
+
+[node name="Camera2D" type="Camera2D" parent="ActorComponent"]
+position = Vector2(-516, -275)
+scale = Vector2(6.14126, 25.1323)
+
+[node name="Collision" type="CollisionShape2D" parent="ActorComponent"]
+shape = SubResource("RectangleShape2D_g2els")
+
+[node name="face" type="Sprite2D" parent="ActorComponent"]
+scale = Vector2(0.372476, 0.351827)
+texture = ExtResource("2_g2els")
+
+[node name="MovementComponent" parent="ActorComponent" node_paths=PackedStringArray("legs", "actor") instance=ExtResource("3_qhqgy")]
+legs = NodePath("legs")
+actor = NodePath("..")
+
+[node name="legs" type="Sprite2D" parent="ActorComponent/MovementComponent"]
+
+[node name="GunComponent" parent="ActorComponent" node_paths=PackedStringArray("raycast") instance=ExtResource("4_dqkch")]
+position = Vector2(6, -3)
+rotation = -7.80837
+scale = Vector2(-0.207604, 0.517808)
+raycast = NodePath("RayCast2D")
+
+[node name="RayCast2D" type="RayCast2D" parent="ActorComponent/GunComponent"]

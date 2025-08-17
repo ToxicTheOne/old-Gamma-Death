@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4ccj5p80hi7e"]
+
+[ext_resource type="Script" uid="uid://chlcnlp3uljw8" path="res://scripts/radiobullet.gd" id="1_uvwt7"]
+[ext_resource type="Texture2D" uid="uid://qd4nxb4m55m0" path="res://icon.svg" id="2_uwywk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uvwt7"]
+
+[node name="Radiobullet" type="Area2D"]
+script = ExtResource("1_uvwt7")
+
+[node name="collisionshape" type="CollisionShape2D" parent="."]
+scale = Vector2(0.336166, 0.321125)
+shape = SubResource("CircleShape2D_uvwt7")
+
+[node name="sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.0658622, 0.0700645)
+texture = ExtResource("2_uwywk")
