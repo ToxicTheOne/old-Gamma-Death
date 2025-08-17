@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://bgjyg5rgea31v"]
+
+[ext_resource type="PackedScene" uid="uid://b50i46kaw3eqm" path="res://scenes/actor..tscn" id="1_5uy6h"]
+[ext_resource type="Texture2D" uid="uid://qd4nxb4m55m0" path="res://icon.svg" id="2_c4w8v"]
+[ext_resource type="PackedScene" uid="uid://cpdqoh6tyydaf" path="res://scenes/movement_component.tscn" id="3_xwavj"]
+[ext_resource type="PackedScene" uid="uid://dhbbybw2usg46" path="res://scenes/gun_component.tscn" id="4_nenq2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_md484"]
+size = Vector2(18, 27)
+
+[node name="enemy" type="Node2D" groups=["Enemy"]]
+
+[node name="ActorComponent" parent="." node_paths=PackedStringArray("collision", "sprite") instance=ExtResource("1_5uy6h")]
+collision = NodePath("Collision")
+sprite = NodePath("sprite")
+
+[node name="Collision" type="CollisionShape2D" parent="ActorComponent"]
+position = Vector2(0, 2.38419e-07)
+scale = Vector2(2.93645, 1.60144)
+shape = SubResource("RectangleShape2D_md484")
+
+[node name="Camera2D" type="Camera2D" parent="ActorComponent"]
+position = Vector2(1.99994, -3.00003)
+scale = Vector2(6.14126, 25.1323)
+
+[node name="sprite" type="Sprite2D" parent="ActorComponent"]
+scale = Vector2(0.372476, 0.351827)
+texture = ExtResource("2_c4w8v")
+
+[node name="MovementComponent" parent="ActorComponent" node_paths=PackedStringArray("actor", "dash_component") instance=ExtResource("3_xwavj")]
+actor = NodePath("")
+dash_component = NodePath("")
+
+[node name="GunComponent" parent="ActorComponent" node_paths=PackedStringArray("raycast") instance=ExtResource("4_nenq2")]
+position = Vector2(6, -3)
+rotation = -7.80837
+scale = Vector2(-0.207604, 0.517808)
+raycast = NodePath("RayCast2D")
+
+[node name="RayCast2D" type="RayCast2D" parent="ActorComponent/GunComponent"]

@@ -1,37 +1,40 @@
-[gd_scene load_steps=6 format=3 uid="uid://b16onf3pbgn8a"]
+[gd_scene load_steps=7 format=3 uid="uid://b16onf3pbgn8a"]
 
 [ext_resource type="PackedScene" uid="uid://b50i46kaw3eqm" path="res://scenes/actor..tscn" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://qd4nxb4m55m0" path="res://icon.svg" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://cpdqoh6tyydaf" path="res://scenes/movement_component.tscn" id="3_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://dhbbybw2usg46" path="res://scenes/gun_component.tscn" id="4_dqkch"]
+[ext_resource type="PackedScene" uid="uid://cq30kjomm5wu" path="res://scenes/dash_component.tscn" id="4_qlg0r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
 size = Vector2(18, 27)
 
 [node name="Player" type="Node2D" groups=["Player"]]
 
-[node name="ActorComponent" parent="." node_paths=PackedStringArray("collision", "sprite_face", "gun_conponent", "movement_component") instance=ExtResource("1_3vyb7")]
+[node name="ActorComponent" parent="." node_paths=PackedStringArray("collision", "sprite", "gun_conponent", "movement_component") instance=ExtResource("1_3vyb7")]
 collision = NodePath("Collision")
-sprite_face = NodePath("face")
+sprite = NodePath("sprite")
 gun_conponent = NodePath("GunComponent")
 movement_component = NodePath("MovementComponent")
 
-[node name="Camera2D" type="Camera2D" parent="ActorComponent"]
-position = Vector2(-516, -275)
-scale = Vector2(6.14126, 25.1323)
-
 [node name="Collision" type="CollisionShape2D" parent="ActorComponent"]
+position = Vector2(0, 2.38419e-07)
+scale = Vector2(2.93645, 1.60144)
 shape = SubResource("RectangleShape2D_g2els")
 
-[node name="face" type="Sprite2D" parent="ActorComponent"]
+[node name="Camera2D" type="Camera2D" parent="ActorComponent"]
+position = Vector2(1.99994, -3.00003)
+scale = Vector2(6.14126, 25.1323)
+
+[node name="sprite" type="Sprite2D" parent="ActorComponent"]
 scale = Vector2(0.372476, 0.351827)
 texture = ExtResource("2_g2els")
 
-[node name="MovementComponent" parent="ActorComponent" node_paths=PackedStringArray("legs", "actor") instance=ExtResource("3_qhqgy")]
-legs = NodePath("legs")
+[node name="MovementComponent" parent="ActorComponent" node_paths=PackedStringArray("actor", "dash_component") instance=ExtResource("3_qhqgy")]
 actor = NodePath("..")
+dash_component = NodePath("DashComponent")
 
-[node name="legs" type="Sprite2D" parent="ActorComponent/MovementComponent"]
+[node name="DashComponent" parent="ActorComponent/MovementComponent" instance=ExtResource("4_qlg0r")]
 
 [node name="GunComponent" parent="ActorComponent" node_paths=PackedStringArray("raycast") instance=ExtResource("4_dqkch")]
 position = Vector2(6, -3)
