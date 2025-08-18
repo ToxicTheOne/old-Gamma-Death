@@ -1,14 +1,14 @@
 extends Node2D
 
-# This was orignally meant to also be used by the AI, but im going to make
-# A separate component for them.
+# This movement component is specific for the player.
+# The enemy has another one for pathfinding etc.
+
 
 # Nodes
-@export var legs : Sprite2D
 @export var actor : CharacterBody2D 
 
 
-# Componentsù
+# Components
 @export var dash_component : Node = null
 
 # Variables
@@ -17,23 +17,25 @@ var speed : int
 var is_walking = false
 
 
-
 func _physics_process(_delta: float) -> void:
-	# detect if you're inputting walk for animation
-
-
-	if Input.get_axis("left", "right") != 0: is_walking = true
-
-	elif Input.get_axis("up", "down") != 0: is_walking = true
-
-	else: is_walking = false
-
-
+	
+	# Get input to move
 	actor.velocity.x = Input.get_axis("left", "right") * speed
 	actor.velocity.y = Input.get_axis("up", "down") * speed
 	
+	
+	# detect if you're inputting walk for animation
+	if Input.get_axis("left", "right") != 0: is_walking = true
+	elif Input.get_axis("up", "down") != 0: is_walking = true
+	else: is_walking = false
+	
+	
+	# Make movement smoother
 	actor.velocity = lerp(actor.get_real_velocity(), actor.velocity, 0.1)
 	
+	
+	
+	# Initiate dash
 	if Input.is_action_just_pressed("dash") and can_dash:
 		if not Input.get_axis("left","right") and not Input.get_axis("up", "down"):
 			return
@@ -45,4 +47,8 @@ func _physics_process(_delta: float) -> void:
 		dash_component.dash(direction)
 		await get_tree().create_timer(Autoload.dash_wait_time).timeout
 		can_dash = true
+	
+	
+	
+	
 	

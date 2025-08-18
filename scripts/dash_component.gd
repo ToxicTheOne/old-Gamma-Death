@@ -2,7 +2,7 @@ extends Node2D
 
 
 @onready var dash_speed : int = Autoload.player_dash_speed 
-@onready var parent : Node2D
+@export var parent : Node2D
 
 func _ready():
 	parent = get_parent().get_parent().get_parent()

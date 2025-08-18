@@ -27,7 +27,9 @@ scale = Vector2(6.14126, 25.1323)
 scale = Vector2(0.372476, 0.351827)
 texture = ExtResource("2_c4w8v")
 
-[node name="MovementComponent" parent="ActorComponent" instance=ExtResource("3_xwavj")]
+[node name="MovementComponent" parent="ActorComponent" node_paths=PackedStringArray("actor", "dash_component") instance=ExtResource("3_xwavj")]
+actor = NodePath("")
+dash_component = NodePath("")
 
 [node name="GunComponent" parent="ActorComponent" node_paths=PackedStringArray("raycast") instance=ExtResource("4_nenq2")]
 position = Vector2(6, -3)
