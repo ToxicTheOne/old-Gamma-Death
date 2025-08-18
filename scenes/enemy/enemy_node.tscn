@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://l8my0tgube45"]
+
+[ext_resource type="Script" uid="uid://cwnr2cl8krw3d" path="res://scenes/enemy/enemy_node.gd" id="1_3kv4a"]
+[ext_resource type="Texture2D" uid="uid://duuejm35fx1de" path="res://scenes/enemy/cop_body.png" id="2_i8hjo"]
+[ext_resource type="Texture2D" uid="uid://bdqh5i445pm5e" path="res://scenes/player/gun_32x32_v1.png" id="3_tnhqf"]
+[ext_resource type="Texture2D" uid="uid://cwdrendgoqi45" path="res://scenes/enemy/cop_head.png" id="4_rt7ll"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_53g7q"]
+size = Vector2(56, 50)
+
+[sub_resource type="Animation" id="Animation_i8hjo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3kv4a"]
+resource_name = "hurt"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 0.634279, 0.628824, 1), Color(1, 0.268557, 0.257648, 1), Color(1, 0.634279, 0.628824, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tnhqf"]
+_data = {
+&"RESET": SubResource("Animation_i8hjo"),
+&"hurt": SubResource("Animation_3kv4a")
+}
+
+[node name="enemy_node" type="Node2D"]
+script = ExtResource("1_3kv4a")
+
+[node name="body_sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = -0.785397
+scale = Vector2(4, 4)
+texture = ExtResource("2_i8hjo")
+
+[node name="gun_node" type="Node2D" parent="."]
+rotation = -0.785397
+
+[node name="gun_sprite" type="Sprite2D" parent="gun_node"]
+texture_filter = 1
+position = Vector2(6.90011, 4.04827)
+scale = Vector2(4, 4)
+texture = ExtResource("3_tnhqf")
+
+[node name="head_sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("4_rt7ll")
+
+[node name="enemy_hurtbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_hurtbox"]
+shape = SubResource("RectangleShape2D_53g7q")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_tnhqf")
+}
+
+[connection signal="area_entered" from="enemy_hurtbox" to="." method="_on_enemy_hurtbox_area_entered"]

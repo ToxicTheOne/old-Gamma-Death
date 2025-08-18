@@ -1,0 +1,244 @@
+[gd_scene load_steps=16 format=3 uid="uid://tjhxtubdriim"]
+
+[ext_resource type="PackedScene" uid="uid://b50i46kaw3eqm" path="res://scenes/actor..tscn" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://cpkqvy0mk47mw" path="res://scenes/player/player_legs.png" id="2_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://cpdqoh6tyydaf" path="res://scenes/movement_component.tscn" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://dhbbybw2usg46" path="res://scenes/gun_component.tscn" id="4_dqkch"]
+[ext_resource type="Texture2D" uid="uid://cq37vmqe8nv6r" path="res://scenes/player/player_hair_body.png" id="5_fjrip"]
+[ext_resource type="Texture2D" uid="uid://bdqh5i445pm5e" path="res://scenes/player/gun_32x32_v1.png" id="5_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://cq30kjomm5wu" path="res://scenes/player/dash_component.tscn" id="7_0owmy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
+size = Vector2(18, 27)
+
+[sub_resource type="Animation" id="Animation_fjrip"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("left_leg:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("left_leg:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("right_leg:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("right_leg:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tuyoq"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("left_leg:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(0.215686, 0.215686, 0.215686, 0.670588), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("left_leg:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(-3, 0), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("right_leg:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(0.215686, 0.215686, 0.215686, 0.670588), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("right_leg:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(-3, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_smehm"]
+_data = {
+&"RESET": SubResource("Animation_fjrip"),
+&"walk": SubResource("Animation_tuyoq")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_75vfm"]
+size = Vector2(40, 40)
+
+[sub_resource type="Animation" id="Animation_0owmy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActorComponent/body_node:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_75vfm"]
+resource_name = "hurt"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActorComponent/body_node:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(0.833496, 0.516877, 0.5, 1), Color(0.666993, 0.0337534, 0, 1), Color(0.833496, 0.516877, 0.5, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qek5x"]
+_data = {
+&"RESET": SubResource("Animation_0owmy"),
+&"hurt": SubResource("Animation_75vfm")
+}
+
+[node name="Player" type="Node2D" groups=["Player"]]
+
+[node name="ActorComponent" parent="." node_paths=PackedStringArray("collision", "sprite_face", "sprite_legs", "sprite_gun", "gun_conponent", "movement_component") instance=ExtResource("1_3vyb7")]
+collision_layer = 4
+collision_mask = 2
+collision = NodePath("Collision")
+sprite_face = NodePath("body_node/head")
+sprite_legs = NodePath("legs/left_leg")
+sprite_gun = NodePath("body_node/GunComponent/gun_sprite")
+gun_conponent = NodePath("body_node/GunComponent")
+movement_component = NodePath("MovementComponent")
+
+[node name="Collision" type="CollisionShape2D" parent="ActorComponent"]
+shape = SubResource("RectangleShape2D_g2els")
+
+[node name="legs" type="Node2D" parent="ActorComponent"]
+
+[node name="left_leg" type="Sprite2D" parent="ActorComponent/legs"]
+texture_filter = 1
+position = Vector2(28, 0)
+scale = Vector2(4, 4)
+texture = ExtResource("2_tuyoq")
+region_enabled = true
+region_rect = Rect2(19, 13, 8, 6)
+
+[node name="right_leg" type="Sprite2D" parent="ActorComponent/legs"]
+texture_filter = 1
+position = Vector2(4, 28)
+scale = Vector2(4, 4)
+texture = ExtResource("2_tuyoq")
+region_enabled = true
+region_rect = Rect2(14, 20, 6, 6)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ActorComponent/legs"]
+libraries = {
+&"": SubResource("AnimationLibrary_smehm")
+}
+
+[node name="body_node" type="Node2D" parent="ActorComponent"]
+
+[node name="GunComponent" parent="ActorComponent/body_node" node_paths=PackedStringArray("raycast") instance=ExtResource("4_dqkch")]
+rotation = -0.523599
+raycast = NodePath("RayCast2D")
+
+[node name="RayCast2D" type="RayCast2D" parent="ActorComponent/body_node/GunComponent"]
+target_position = Vector2(55.4256, 32)
+
+[node name="gun_sprite" type="Sprite2D" parent="ActorComponent/body_node/GunComponent"]
+texture_filter = 1
+position = Vector2(6.90011, 4.04827)
+rotation = -0.261799
+scale = Vector2(4, 4)
+texture = ExtResource("5_qlg0r")
+
+[node name="head" type="Sprite2D" parent="ActorComponent/body_node"]
+texture_filter = 1
+rotation = -0.785398
+scale = Vector2(4, 4)
+texture = ExtResource("5_fjrip")
+
+[node name="MovementComponent" parent="ActorComponent" node_paths=PackedStringArray("actor", "dash_component") instance=ExtResource("3_qhqgy")]
+actor = NodePath("..")
+dash_component = NodePath("DashComponent")
+
+[node name="DashComponent" parent="ActorComponent/MovementComponent" instance=ExtResource("7_0owmy")]
+
+[node name="attack_hurtbox" type="Area2D" parent="ActorComponent"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActorComponent/attack_hurtbox"]
+shape = SubResource("RectangleShape2D_75vfm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qek5x")
+}
+
+[connection signal="area_entered" from="ActorComponent/attack_hurtbox" to="ActorComponent" method="_on_attack_hurtbox_area_entered"]
