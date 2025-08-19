@@ -4,9 +4,8 @@ extends Node
 @onready var player_max_health : float = 100
 @onready var player_curremt_health : float
 @onready var player_speed : int = 300
-@onready var player_dash_speed : int = 1000
+@onready var player_dash_speed : int
 @onready var shoot_wait_time : float = 0.35
-@onready var dash_wait_time : float = 2
 
 const wavelenghts : Dictionary = {
 	"radio" : [1],

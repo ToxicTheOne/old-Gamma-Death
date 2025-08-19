@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 # Nodes
 @export var collision: CollisionShape2D 
-@export var sprite : Sprite2D 
+@export var sprite_face: Sprite2D 
 
 # Conponents
 @export var gun_conponent : Node2D 
@@ -15,7 +15,7 @@ extends CharacterBody2D
 
 
 func _physics_process(_delta: float) -> void:
-	sprite.look_at(get_global_mouse_position())
+	sprite_face.look_at(get_global_mouse_position())
 	move_and_slide()
 
 func _ready() -> void:
