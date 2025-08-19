@@ -1,34 +1,24 @@
 extends Node2D
 
-# This was orignally meant to also be used by the AI, but im going to make
-# A separate component for them.
-
 # Nodes
-@export var legs : Sprite2D
 @export var actor : CharacterBody2D 
 
 
-# Componentsù
+# Components
 @export var dash_component : Node = null
 
 # Variables
-var speed : int
-@onready var can_dash : bool = true
-var is_walking = false
+@onready var speed : int
+@onready var can_dash : bool
 
 
+func _ready() -> void:
+	if dash_component == null:
+		can_dash = false
+	elif dash_component != null:
+		can_dash = true
 
 func _physics_process(_delta: float) -> void:
-	# detect if you're inputting walk for animation
-
-
-	if Input.get_axis("left", "right") != 0: is_walking = true
-
-	elif Input.get_axis("up", "down") != 0: is_walking = true
-
-	else: is_walking = false
-
-
 	actor.velocity.x = Input.get_axis("left", "right") * speed
 	actor.velocity.y = Input.get_axis("up", "down") * speed
 	
